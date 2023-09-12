@@ -52,7 +52,7 @@ public class AuthController implements AuthControllerOpenApi {
 	}
 
 	@PostMapping("/sign-up")
-	public ResponseEntity<UsuarioCadastradoResult> registrarFuncionario(final @Valid @RequestBody Regi strarDTO dto) {
+	public ResponseEntity<UsuarioCadastradoResult> registrarFuncionario(final @Valid @RequestBody RegistrarDTO dto) {
 		UsuarioCadastradoResult result = this.registrarUseCase.handle(RegistrarCommand.toCommand(dto));
 		return ResponseEntity.ok(result);
 	}
