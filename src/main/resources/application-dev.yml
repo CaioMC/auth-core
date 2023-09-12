@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/titan-auth-db
+    username: titan
+    password: titan@123
+
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    schemas: 71E8F160-D9D4-4A2D-8707-781443AC726C
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: 71E8F160-D9D4-4A2D-8707-781443AC726C
+        format_sql: true
+        show_sql: true
+        hbm2ddl:
+          auto: "none"
+
+management:
+  server:
+    port: 9781
+
+server:
+  port: 8781
+
+logging:
+  level:
+    '[com.totvs.sl]': TRACE
+    '[org.hibernate.SQL]': DEBUG
+    '[org.hibernate.type]': TRACE

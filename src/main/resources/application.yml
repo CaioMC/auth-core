@@ -1,0 +1,93 @@
+spring:
+  application:
+    name: titan-auth
+    profiles:
+      active:
+        - prod
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/${spring.application.name}-db
+    username: titan
+    password: titan@123
+    hikari:
+      poolName: ${spring.application.name}-default-pool
+      auto-commit: false
+      connection-timeout: 10000
+      idle-timeout: 600000
+      max-lifetime: 300000
+      data-source-properties:
+        cachePrepStmts: true
+
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    schemas: 13E94D11-278E-48BF-977D-3A1650BAF7AC
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    open-in-view: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      # org.hibernate.cfg.AvailableSettings
+      hibernate:
+        cache:
+          '[use_second_level_cache]': false
+        connection:
+          '[provider_disables_autocommit]': true
+        jdbc:
+          '[batch_size]': 30
+          '[batch_versioned_data]': true
+          '[time_zone]': UTC
+        '[order_inserts]': true
+        '[order_updates]': true
+        query:
+          '[in_clause_parameter_padding]': true
+          '[fail_on_pagination_over_collection_fetch]': true
+        session:
+          events:
+            log:
+              '[LOG_QUERIES_SLOWER_THAN_MS]': 100
+
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: lazy
+
+server:
+  servlet:
+    context-path: /titan/auth/core
+  compression:
+    enabled: true
+  shutdown: graceful
+
+management:
+  server:
+    port: 8080
+    base-path: /
+  endpoints:
+    web:
+      base-path: /_/
+      path-mapping:
+        prometheus: metrics
+      exposure:
+        include:
+          - "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+springdoc:
+  default-produces-media-type: application/json
+  swagger-ui:
+    display-request-duration: true
+    disable-swagger-default-url: true
+    doc-expansion: none
+    groups-order: DESC
+    operationsSorter: alpha
+    tagsSorter: alpha
+    path: /swagger-ui.html
+    title: Titan System - Auth
+

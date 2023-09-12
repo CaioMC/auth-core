@@ -1,0 +1,38 @@
+version: '3'
+
+volumes:
+
+  titan-system-pg-data: {}
+  titan-system-rabbitmq-data: {}
+
+services:
+
+  titan-system-core-postgres:
+    image: sameersbn/postgresql:10-1
+    restart: always
+    environment:
+      DB_NAME: titan-auth-db, tita-stock-db, titan-medical-record-db, titan-appointment-scheduling-db
+      DB_USER: titan
+      DB_PASS: titan@123
+      PG_PASSWORD: titan@123
+    ports:
+      - 5432:5432
+    volumes:
+      - titan-system-pg-data:/var/lib/postgresq
+
+  titan-system-pg-admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: caio.coelho.business@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: dev
+    ports:
+      - 8000:80
+
+  titan-system-rabbitmq:
+    image: rabbitmq:3.7-management-alpine
+    restart: always
+    volumes:
+      - titan-system-rabbitmq-data:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
