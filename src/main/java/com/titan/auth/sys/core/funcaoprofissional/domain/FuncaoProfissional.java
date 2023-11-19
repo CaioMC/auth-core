@@ -4,6 +4,7 @@ import com.titan.auth.sys.core.funcaoprofissional.domain.enums.Funcao;
 import com.titan.auth.sys.core.infra.config.domain.entity.AbstractAuditableAggregate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +22,14 @@ public class FuncaoProfissional extends AbstractAuditableAggregate {
 	private UUID id;
 	private UUID profissionalId;
 	private Funcao funcao;
+
+	@Builder
+	private static FuncaoProfissional registrarFuncao(UUID profissionalId, Funcao funcao) {
+		return new FuncaoProfissional(
+				UUID.randomUUID(),
+				profissionalId,
+				funcao
+		);
+	}
 
 }

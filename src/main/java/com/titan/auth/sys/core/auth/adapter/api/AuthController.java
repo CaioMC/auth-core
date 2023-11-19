@@ -2,12 +2,13 @@ package com.titan.auth.sys.core.auth.adapter.api;
 
 import com.titan.auth.sys.core.auth.AutenticarUseCase;
 import com.titan.auth.sys.core.auth.AutenticarUseCase.AutenticarCommand;
+import com.titan.auth.sys.core.auth.RefreshTokenUseCase;
 import com.titan.auth.sys.core.auth.RegistrarUseCase;
 import com.titan.auth.sys.core.auth.RegistrarUseCase.RegistrarCommand;
 import com.titan.auth.sys.core.auth.RegistrarUseCase.UsuarioCadastradoResult;
 import com.titan.auth.sys.core.auth.adapter.api.dto.AutenticarDTO;
+import com.titan.auth.sys.core.auth.adapter.api.dto.RefreshTokenDTO;
 import com.titan.auth.sys.core.auth.adapter.api.dto.RegistrarDTO;
-import com.titan.auth.sys.core.auth.adapter.api.dto.TokenDTO;
 import com.titan.auth.sys.core.auth.adapter.api.openapi.AuthControllerOpenApi;
 import com.titan.auth.sys.core.auth.exception.SenhaInvalidaException;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,18 +34,14 @@ public class AuthController implements AuthControllerOpenApi {
 
 	private final AutenticarUseCase autenticarUseCase;
 	private final RegistrarUseCase registrarUseCase;
+	private final RefreshTokenUseCase refreshTokenUseCase;
 
 	@PostMapping("/sign-in")
-	public ResponseEntity<TokenDTO> autenticarFuncionario(final @Valid @RequestBody AutenticarDTO dto) {
+	public ResponseEntity<UsuarioCadastradoResult> autenticarFuncionario(final @Valid @RequestBody AutenticarDTO dto) {
 		try {
 			AutenticarCommand command = new AutenticarCommand(dto.login(), dto.senha());
 
-			UserDetails usuarioAutenticado = this.autenticarUseCase.handle(command);
-
-			return ResponseEntity.ok(new TokenDTO(
-					usuarioAutenticado.getUsername(), // Login
-					usuarioAutenticado.getPassword()) // Token
-			);
+			return ResponseEntity.ok(this.autenticarUseCase.handle(command));
 		} catch (UsernameNotFoundException | SenhaInvalidaException e) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 		}
@@ -53,8 +49,13 @@ public class AuthController implements AuthControllerOpenApi {
 
 	@PostMapping("/sign-up")
 	public ResponseEntity<UsuarioCadastradoResult> registrarFuncionario(final @Valid @RequestBody RegistrarDTO dto) {
-		UsuarioCadastradoResult result = this.registrarUseCase.handle(RegistrarCommand.toCommand(dto));
-		return ResponseEntity.ok(result);
+		var usuarioCadastradoResult = this.registrarUseCase.handle(RegistrarCommand.toCommand(dto));
+		return ResponseEntity.ok(usuarioCadastradoResult);
 	}
 
+	@PostMapping("/refresh-token")
+	public ResponseEntity<UsuarioCadastradoResult> atualizarToken(final RefreshTokenDTO dto) {
+		var usuarioCadastradoResult = this.refreshTokenUseCase.handle(new RefreshTokenUseCase.RefreshTokenCommand(dto.token()));
+		return ResponseEntity.ok(usuarioCadastradoResult);
+	}
 }

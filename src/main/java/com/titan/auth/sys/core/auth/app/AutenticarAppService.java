@@ -1,6 +1,8 @@
 package com.titan.auth.sys.core.auth.app;
 
 import com.titan.auth.sys.core.auth.AutenticarUseCase;
+import com.titan.auth.sys.core.auth.RegistrarUseCase.UsuarioCadastradoResult;
+import com.titan.auth.sys.core.auth.domain.Auth;
 import com.titan.auth.sys.core.auth.domain.AuthDomainRepository;
 import com.titan.auth.sys.core.auth.exception.SenhaInvalidaException;
 import com.titan.auth.sys.core.infra.config.security.app.JwtAppServive;
@@ -23,23 +25,29 @@ public class AutenticarAppService implements AutenticarUseCase {
 	private final AuthDomainRepository repository;
 	private final JwtAppServive jwtAppService;
 
-	public UserDetails handle(AutenticarCommand command) {
+	public UsuarioCadastradoResult handle(AutenticarCommand command) {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		UserDetails user = this.loadUserByUsername(command.login());
+		this.validarSenha(command, encoder, user);
+
+		String token = this.jwtAppService.gerarToken(user);
+
+		UUID authId = UUID.fromString(user.getUsername());
+		var auth = this.repository.findByIdOrThrowNotFound(authId);
+
+		this.atualizarToken(auth, token);
+
+		return new UsuarioCadastradoResult(
+				token
+		);
+	}
+
+	private void validarSenha(AutenticarCommand command, PasswordEncoder encoder, UserDetails user) {
 		boolean senhaExistente = encoder.matches(command.senha(), user.getPassword());
 
 		if (!senhaExistente)
 			throw new SenhaInvalidaException();
-
-		String token = this.jwtAppService.gerarToken(user);
-
-		UUID authId = UUID.fromString(user.getUsername().split(" ")[1]);
-
-		var auth = this.repository.findByIdOrThrowNotFound(authId);
-		this.repository.save(auth.atualizarToken(token));
-
-		return user;
 	}
 
 	@Override
@@ -48,12 +56,12 @@ public class AutenticarAppService implements AutenticarUseCase {
 
 		return User
 				.builder()
-				.username(this.getUserName(authProjetion, username) + " " + authProjetion.getId().toString())
+				.username(authProjetion.getId().toString())
 				.password(authProjetion.getPassword())
 				.build();
 	}
 
-	private String getUserName(AuthProjection projection, String username) {
-		return username.equals(projection.getCpf()) ? projection.getCpf() : projection.getEmail();
+	private void atualizarToken(Auth auth, String token) {
+		this.repository.save(auth.atualizarToken(token));
 	}
 }

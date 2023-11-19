@@ -50,8 +50,7 @@ public interface RegistrarUseCase {
 	}
 
 	record UsuarioCadastradoResult(
-			String login,
-			String senha
+			String token
 	) {}
 
 }

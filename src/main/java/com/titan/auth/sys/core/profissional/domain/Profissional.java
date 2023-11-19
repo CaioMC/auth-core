@@ -47,8 +47,8 @@ public class Profissional extends AbstractAuditableAggregate {
 		return new Profissional(
 				UUID.randomUUID(),
 				TipoProfissional.PROFISSIONAL_SAUDE,
-				command.nome(),
 				command.email(),
+				command.nome(),
 				command.cpf(),
 				command.celular(),
 				command.sexo(),

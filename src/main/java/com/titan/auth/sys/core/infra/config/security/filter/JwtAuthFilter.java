@@ -2,6 +2,7 @@ package com.titan.auth.sys.core.infra.config.security.filter;
 
 import com.titan.auth.sys.core.auth.app.AutenticarAppService;
 import com.titan.auth.sys.core.infra.config.security.app.JwtAppServive;
+import com.titan.auth.sys.core.infra.config.security.exception.TokenInvalidoException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,15 +42,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 						User.builder()
-								.username(usuario.getUsername().split(" ")[0])
+								.username(usuario.getUsername())
 								.password(usuario.getPassword())
 								.build(),
 						null,
 						usuario.getAuthorities());
 
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				authenticationToken.setAuthenticated(true);
 
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			} else {
+				throw new TokenInvalidoException();
 			}
 		}
 

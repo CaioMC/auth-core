@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -43,7 +42,7 @@ public class JwtAppServive {
 
 	public boolean tokenValido(String token) {
 		try {
-			Claims claims = this.obterClaims(token);
+			Claims claims = obterClaims(token);
 			Date dataExpiracao = claims.getExpiration();
 			LocalDateTime data =
 					dataExpiracao.toInstant()
@@ -55,10 +54,10 @@ public class JwtAppServive {
 	}
 
 	public String obterLoginUsuario(String token) throws ExpiredJwtException {
-		return (String) this.obterClaims(token).getSubject();
+		return (String) obterClaims(token).getSubject();
 	}
 
-	private Claims obterClaims(String token) throws ExpiredJwtException {
+	public static Claims obterClaims(String token) throws ExpiredJwtException {
 		return Jwts
 				.parser()
 				.setSigningKey(CHAVE_ASSINATURA)
