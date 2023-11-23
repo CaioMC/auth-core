@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  build:
+  deploy:
 
     name: Build and analyze
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: 'zulu'
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -40,7 +40,7 @@ jobs:
         run: docker compose up -d
 
       - name: Mvn Clean and Install
-        run: mvn clean package install
+        run: mvn clean install
 
       - name: Build and analyze
         env:
