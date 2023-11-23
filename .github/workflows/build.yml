@@ -38,7 +38,17 @@ jobs:
         run: docker compose up -d
 
       - name: Build and analyze
-        uses: sonarsource/sonarcloud-github-action@main
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: my-custom-directory
+          args: >
+            -Dsonar.organization=caiomc
+            -Dsonar.projectKey=CaioMC_auth-core
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=lib/
+            -Dsonar.test.exclusions=tests/**
+            -Dsonar.tests=tests/
+            -Dsonar.verbose=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
