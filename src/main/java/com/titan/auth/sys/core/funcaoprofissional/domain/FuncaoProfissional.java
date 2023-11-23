@@ -24,7 +24,7 @@ public class FuncaoProfissional extends AbstractAuditableAggregate {
 	private Funcao funcao;
 
 	@Builder
-	private static FuncaoProfissional registrarFuncao(UUID profissionalId, Funcao funcao) {
+	public static FuncaoProfissional registrarFuncao(UUID profissionalId, Funcao funcao) {
 		return new FuncaoProfissional(
 				UUID.randomUUID(),
 				profissionalId,

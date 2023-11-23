@@ -64,8 +64,4 @@ public class Profissional extends AbstractAuditableAggregate {
 				command.cnes()
 		);
 	}
-
-	public String getLogin() {
-		return StringUtils.isNotBlank(this.cpf) ? this.cpf : this.email;
-	}
 }

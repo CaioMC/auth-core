@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.NonNull;
+
 import java.util.UUID;
 
 @Getter
@@ -21,4 +23,11 @@ public class TelefoneClinica extends AbstractAuditableAggregate {
 	private UUID clinicaId;
 	private String telefone;
 
+	public static TelefoneClinica registrarTelefoneClinica(@NonNull UUID clinicaId, @NonNull String telefone) {
+		return new TelefoneClinica(
+				UUID.randomUUID(),
+				clinicaId,
+				telefone
+		);
+	}
 }

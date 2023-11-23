@@ -23,7 +23,7 @@ public class ProfissionalClinica extends AbstractAuditableAggregate {
 	private UUID profissionalId;
 
 	@Builder
-	private static ProfissionalClinica registrarProfissionalClinica(UUID clinicaId, UUID profissionalId) {
+	public static ProfissionalClinica registrarProfissionalClinica(UUID clinicaId, UUID profissionalId) {
 		return new ProfissionalClinica(
 				UUID.randomUUID(),
 				clinicaId,

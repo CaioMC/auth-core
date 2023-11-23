@@ -2,9 +2,6 @@ package com.titan.auth.sys.core.auth.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -30,7 +27,7 @@ class AuthTest {
 				this.clinicaId
 		);
 
-		assertAll("Verifica se todos os atributos da disciplina estão corretos",
+		assertAll("Verifica se todos os atributos do auth estão corretos",
 				() -> assertEquals(this.profissionalId, auth.getProfissionalId()),
 				() -> assertEquals(this.refreshToken, auth.getRefreshToken()),
 				() -> assertEquals(this.password, auth.getPassword()),
