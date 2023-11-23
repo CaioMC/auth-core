@@ -8,12 +8,6 @@ import com.titan.auth.sys.core.auth.adapter.api.dto.AutenticarDTO;
 import com.titan.auth.sys.core.auth.adapter.api.dto.RefreshTokenDTO;
 import com.titan.auth.sys.core.auth.adapter.api.dto.RegistrarDTO;
 import com.titan.auth.sys.core.auth.domain.AuthDomainRepository;
-import com.titan.auth.sys.core.profissional.domain.enums.ConcelhoProfissional;
-import com.titan.auth.sys.core.profissional.domain.enums.ProfissaoEspecializada;
-import com.titan.auth.sys.core.profissional.domain.enums.Sexo;
-import com.titan.auth.sys.core.profissional.domain.enums.TratamentoProfissional;
-import com.titan.auth.sys.core.profissional.domain.enums.Uf;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Transactional
 @Rollback
@@ -57,12 +51,12 @@ class AuthControllerIT {
 				"caio.coelho@gmail.com",
 				"03119654332",
 				"47996213537",
-				Sexo.MASCULINO,
-				TratamentoProfissional.DR,
-				ConcelhoProfissional.CBOO,
+				null,
+				null,
+				null,
 				"123",
-				Uf.ACRE,
-				ProfissaoEspecializada.ASSISTENTE_SOCIAL,
+				null,
+				null,
 				"123",
 				"123",
 				"123",
