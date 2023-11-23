@@ -22,11 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
 @Transactional
 @Rollback
 @DisplayName("Auth Controller - API")
-class AuthControllerIT {
+class AuthControllerTest {
 
 	@InjectMocks
 	private AuthController authController;
