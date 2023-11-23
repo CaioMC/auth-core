@@ -14,7 +14,7 @@
 	<groupId>com.titan</groupId>
 	<artifactId>auth-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>auth-core</name>
 	<description>Projeto responsável por processar toda autenticação diante dos serviços dentro do grupo &quot;Titan System&quot;.</description>
 
