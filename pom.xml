@@ -22,7 +22,7 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
 
-		<sonar.organization>titan-system</sonar.organization>
+		<sonar.organization>caiomc</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
