@@ -1,30 +1,42 @@
 package com.titan.auth.sys.core.auth.adpter.in.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.titan.auth.sys.core.auth.AutenticarUseCase;
-import com.titan.auth.sys.core.auth.RefreshTokenUseCase;
 import com.titan.auth.sys.core.auth.RegistrarUseCase;
 import com.titan.auth.sys.core.auth.adapter.api.AuthController;
 import com.titan.auth.sys.core.auth.adapter.api.dto.AutenticarDTO;
 import com.titan.auth.sys.core.auth.adapter.api.dto.RefreshTokenDTO;
 import com.titan.auth.sys.core.auth.adapter.api.dto.RegistrarDTO;
 import com.titan.auth.sys.core.auth.domain.AuthDomainRepository;
-import org.junit.jupiter.api.DisplayName;
+import com.titan.auth.sys.core.profissional.domain.ProfissionalDomainRepository;
+import com.titan.auth.sys.core.profissional.domain.enums.ConcelhoProfissional;
+import com.titan.auth.sys.core.profissional.domain.enums.ProfissaoEspecializada;
+import com.titan.auth.sys.core.profissional.domain.enums.Sexo;
+import com.titan.auth.sys.core.profissional.domain.enums.TratamentoProfissional;
+import com.titan.auth.sys.core.profissional.domain.enums.Uf;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@AutoConfigureMockMvc(addFilters = false)
 @Transactional
 @Rollback
-@DisplayName("Auth Controller - API")
+@ActiveProfiles("it")
 class AuthControllerTest {
 
 	@InjectMocks
@@ -33,37 +45,43 @@ class AuthControllerTest {
 	@Mock
 	private AuthDomainRepository repository;
 
-
 	@Mock
-	private RegistrarUseCase registrarUseCase;
+	private ProfissionalDomainRepository profissionalRepository;
 
-	@Mock
-	private AutenticarUseCase autenticarUseCase;
+	@Mock AutenticarUseCase autenticarUseCase;
 
-	@Mock
-	private RefreshTokenUseCase refreshTokenUseCase;
+	@Autowired
+	private MockMvc mock;
+
+	@Autowired
+	ObjectMapper mapper;
 
 	@Test
-	void testRegistrarFuncionarioSuccess() {
+	void testRegistrarFuncionarioSuccess() throws Exception {
 		RegistrarDTO registrarDTO = new RegistrarDTO(
 				"Caio",
 				"caio.coelho@gmail.com",
 				"03119654332",
 				"47996213537",
-				null,
-				null,
-				null,
+				Sexo.MASCULINO,
+				TratamentoProfissional.DR,
+				ConcelhoProfissional.CBOO,
 				"123",
-				null,
-				null,
+				Uf.ACRE,
+				ProfissaoEspecializada.ASSISTENTE_SOCIAL,
 				"123",
 				"123",
 				"123",
 				"123"
 		);
 
-		ResponseEntity<RegistrarUseCase.UsuarioCadastradoResult> response = authController.registrarFuncionario(registrarDTO);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
+		String dto = mapper.writeValueAsString(registrarDTO);
+
+		mock.perform(post("/api/auth/sign-up")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(dto))
+				.andExpect(status().isOk())
+				.andReturn();
 	}
 
 	@Test
@@ -78,12 +96,15 @@ class AuthControllerTest {
 	}
 
 	@Test
-	void testRefreshTokenSuccess() {
-		RefreshTokenDTO refreshTokenDTO = new RefreshTokenDTO(
-				"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZDhjZDY2ZS0wM2RhLTQ2NzctOGM5Zi0xY2U2NmEzNzIwOGMiLCJleHAiOjE3MDA0MzE3OTZ9.0RVRUCBE65sTMChF3KhRuUJQZQ-md8MAvw0Nh9VibzZEJjYzuiV6bIktAnzwMI03l6bsYGa5zGUhqEjgDZjDgQ"
-		);
+	void testRefreshTokenSuccess() throws Exception {
+		RefreshTokenDTO refreshTokenDTO = new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwZTIzMTc4OC04M2IzLTQ1YjEtOTAwZC0xYWQ5NTc0YTM2YjkiLCJleHAiOjE3MDA3NzIyMDN9.RvsLl9BbWVp8Htzp_6l1yGQQWrR1kJz8ZLH-Xu6dKg8iHuxgE_olVYY8Qi6pyC8ROlgjrXOjylm009DaLUfqPg");
 
-		ResponseEntity<RegistrarUseCase.UsuarioCadastradoResult> response = authController.atualizarToken(refreshTokenDTO);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
+		String dto = mapper.writeValueAsString(refreshTokenDTO);
+
+		mock.perform(post("/api/auth/refresh-token")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(dto))
+				.andExpect(status().isOk())
+				.andReturn();
 	}
 }

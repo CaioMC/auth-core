@@ -3,18 +3,16 @@ spring:
     enabled: false
 
   flyway:
-    schemas:
-      - it
+    enabled: true
+    baselineOnMigrate: true
+    schemas: it
 
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         '[default_schema]': it
-tjf:
-  tenant:
-    schema:
-      ignored:
-        - _71E8F160_D9D4_4A2D_8707_781443AC726C
 
 logging:
   level:

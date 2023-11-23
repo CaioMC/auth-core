@@ -54,7 +54,7 @@ public class AuthController implements AuthControllerOpenApi {
 	}
 
 	@PostMapping("/refresh-token")
-	public ResponseEntity<UsuarioCadastradoResult> atualizarToken(final RefreshTokenDTO dto) {
+	public ResponseEntity<UsuarioCadastradoResult> atualizarToken(@RequestBody final RefreshTokenDTO dto) {
 		var usuarioCadastradoResult = this.refreshTokenUseCase.handle(new RefreshTokenUseCase.RefreshTokenCommand(dto.token()));
 		return ResponseEntity.ok(usuarioCadastradoResult);
 	}
