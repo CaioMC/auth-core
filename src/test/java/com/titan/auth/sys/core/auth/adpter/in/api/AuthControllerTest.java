@@ -14,6 +14,7 @@ import com.titan.auth.sys.core.profissional.domain.enums.ProfissaoEspecializada;
 import com.titan.auth.sys.core.profissional.domain.enums.Sexo;
 import com.titan.auth.sys.core.profissional.domain.enums.TratamentoProfissional;
 import com.titan.auth.sys.core.profissional.domain.enums.Uf;
+import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,6 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -106,5 +108,20 @@ class AuthControllerTest {
 						.content(dto))
 				.andExpect(status().isOk())
 				.andReturn();
+	}
+
+	@Test
+	void testTokenInvalido() throws Exception {
+		RefreshTokenDTO refreshTokenDTO = new RefreshTokenDTO("eyJhdabGciOiJIUzUxMiJ9.eyJzdWIiOiIwZTIzMTc4OC04M2IzLTQ1YjEtOTAwZC0xYWQ5NTc0YTM2YjkiLCJleHAiOjE3MDA3NzIyMDN9.RvsLl9BbWVp8Htzp_6l1yGQQWrR1kJz8ZLH-Xu6dKg8iHuxgE_olVYY8Qi6pyC8ROlgjrXOjylm009DaLUfqPg");
+
+		String dto = mapper.writeValueAsString(refreshTokenDTO);
+
+		assertThrows(ServletException.class,
+				() -> mock.perform(post("/api/auth/refresh-token")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(dto))
+						.andExpect(status().isBadRequest())
+						.andReturn());
+
 	}
 }
