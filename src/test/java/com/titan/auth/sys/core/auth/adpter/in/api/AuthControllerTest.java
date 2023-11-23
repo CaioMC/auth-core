@@ -101,7 +101,7 @@ class AuthControllerTest {
 	void testRefreshTokenSuccess() throws Exception {
 		RefreshTokenDTO refreshTokenDTO = new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwZTIzMTc4OC04M2IzLTQ1YjEtOTAwZC0xYWQ5NTc0YTM2YjkiLCJleHAiOjE3MDA3OTc3MzV9.Qn4WnMXEGkbjbZ8YFcz5VrCWs0nLftEqEKQELWrjp53_n8F5stoDR-ZyCkEmCCGEuidjBRxlDq1izx92Zh_9Ig");
 
-		String dto = mapper.writeValueAsString(refreshTokenDTO);
+		String dto  = mapper.writeValueAsString(refreshTokenDTO);
 
 		mock.perform(post("/api/auth/refresh-token")
 						.contentType(MediaType.APPLICATION_JSON)
