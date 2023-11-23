@@ -4,6 +4,7 @@ import com.titan.auth.sys.core.infra.config.domain.entity.AbstractAuditableAggre
 import com.titan.auth.sys.core.profissional.domain.enums.Uf;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import java.util.UUID;
 
+@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
