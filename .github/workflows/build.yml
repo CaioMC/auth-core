@@ -41,7 +41,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean install && mvn verify sonar:sonar \ 
-          -Dsonar.organization=caiomc \
-          -Dsonar.projectKey=CaioMC_auth-core
+        run: mvn clean install
 
