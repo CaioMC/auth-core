@@ -1,4 +1,4 @@
-name: Build CI
+name: Build CI/CD - EC2 DEPLOY
 on:
   push:
     branches:
@@ -47,3 +47,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=caiomc -Dsonar.projectKey=CaioMC_auth-core
+
+      - name: Copy files with SSH
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "./"
+          REMOTE_HOST: "ec2-3-148-145-65.us-east-2.compute.amazonaws.com"
+          REMOTE_USER: "ec2-user"
+          TARGET: "/home/ec2-user"
