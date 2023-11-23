@@ -1,0 +1,22 @@
+spring:
+  jmx:
+    enabled: false
+
+  flyway:
+    schemas:
+      - it
+
+  jpa:
+    properties:
+      hibernate:
+        '[default_schema]': it
+tjf:
+  tenant:
+    schema:
+      ignored:
+        - _71E8F160_D9D4_4A2D_8707_781443AC726C
+
+logging:
+  level:
+    '[org.hibernate.SQL]': DEBUG
+    '[org.hibernate.type]': TRACE
