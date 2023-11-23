@@ -6,8 +6,6 @@ import com.titan.auth.sys.core.profissional.domain.enums.ProfissaoEspecializada;
 import com.titan.auth.sys.core.profissional.domain.enums.Sexo;
 import com.titan.auth.sys.core.profissional.domain.enums.TratamentoProfissional;
 import com.titan.auth.sys.core.profissional.domain.enums.Uf;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface RegistrarUseCase {
 
