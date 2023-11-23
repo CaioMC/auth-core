@@ -23,7 +23,7 @@ public class RefreshTokenAppService implements RefreshTokenUseCase {
 	private final AuthDomainRepository repository;
 	private final JwtAppServive jwtAppService;
 
-	public RegistrarUseCase.UsuarioCadastradoResult handle(RefreshTokenCommand command) {
+	public RegistrarUseCase.UsuarioCadastradoResult handle(RefreshTokenCommand command) throws TokenNaoGeradoPeloSistemaTitanException {
 		try {
 			Claims claims = JwtAppServive.obterClaims(command.token());
 
