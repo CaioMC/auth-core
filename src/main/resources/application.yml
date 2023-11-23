@@ -7,20 +7,21 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password:  ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/${spring.application.name}-db
+    username: titan
+    password: titan@123
     hikari:
-      minimum-idle: 0
-      maximum-pool-size: 20
-      idle-timeout: 30000
-      max-lifetime: 60000
-      connection-timeout: 30000
+      poolName: ${spring.application.name}-default-pool
+      auto-commit: false
+      connection-timeout: 10000
+      idle-timeout: 600000
+      max-lifetime: 300000
+      data-source-properties:
+        cachePrepStmts: true
 
   flyway:
     enabled: true
     baselineOnMigrate: true
-    locations: classpath:db/migration
     schemas: 13E94D11-278E-48BF-977D-3A1650BAF7AC
 
   jpa:
