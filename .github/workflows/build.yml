@@ -48,7 +48,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=caiomc -Dsonar.projectKey=CaioMC_auth-core
 
-      - name: Copy files with SSH
+      - name: Copy files with SSH - EC2
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
