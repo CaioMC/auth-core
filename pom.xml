@@ -19,11 +19,13 @@
 	<description>Projeto responsável por processar toda autenticação diante dos serviços dentro do grupo &quot;Titan System&quot;.</description>
 
 	<properties>
+
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
 
 		<sonar.organization>caiomc</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
 	</properties>
 
 	<dependencies>
