@@ -35,7 +35,7 @@ public class RefreshTokenAppService implements RefreshTokenUseCase {
 							.atZone(ZoneId.systemDefault()).toLocalDateTime();
 
 			if (!LocalDateTime.now().isAfter(data))
-				return new RegistrarUseCase.UsuarioCadastradoResult(command.token());
+				return new RegistrarUseCase.UsuarioCadastradoResult(command.token(), null);
 
 			return new RegistrarUseCase.UsuarioCadastradoResult(
 					this.jwtAppService.gerarToken(
@@ -43,7 +43,8 @@ public class RefreshTokenAppService implements RefreshTokenUseCase {
 									.builder()
 									.username(authId)
 									.build()
-					)
+					),
+					null
 			);
 		} catch (Exception e) {
 			throw new TokenNaoGeradoPeloSistemaTitanException();

@@ -6,6 +6,7 @@ import com.titan.auth.sys.core.auth.domain.Auth;
 import com.titan.auth.sys.core.auth.domain.AuthDomainRepository;
 import com.titan.auth.sys.core.auth.exception.SenhaInvalidaException;
 import com.titan.auth.sys.core.infra.config.security.app.JwtAppServive;
+import com.titan.auth.sys.core.profissional.domain.ProfissionalDomainRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,8 @@ import java.util.UUID;
 public class AutenticarAppService implements AutenticarUseCase {
 
 	private final AuthDomainRepository repository;
+	private final ProfissionalDomainRepository profissionalRepository;
+
 	private final JwtAppServive jwtAppService;
 
 	public UsuarioCadastradoResult handle(AutenticarCommand command) {
@@ -38,8 +41,11 @@ public class AutenticarAppService implements AutenticarUseCase {
 
 		this.atualizarToken(auth, token);
 
+		var profissional = this.profissionalRepository.findById(auth.getProfissionalId()).orElseThrow();
+
 		return new UsuarioCadastradoResult(
-				token
+				token,
+				profissional.getNome()
 		);
 	}
 
