@@ -14,7 +14,6 @@ import com.titan.auth.sys.core.profissional.domain.enums.ProfissaoEspecializada;
 import com.titan.auth.sys.core.profissional.domain.enums.Sexo;
 import com.titan.auth.sys.core.profissional.domain.enums.TratamentoProfissional;
 import com.titan.auth.sys.core.profissional.domain.enums.Uf;
-import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
