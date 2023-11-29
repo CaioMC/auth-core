@@ -98,7 +98,7 @@ class AuthControllerTest {
 
 	@Test
 	void testRefreshTokenSuccess() throws Exception {
-		RefreshTokenDTO refreshTokenDTO =  new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjMiLCJleHAiOjE3MDExMDQ1ODl9.1WrseAzdAGMcYixQqUe-o_zEBvyRJ8UowYszSh0Ai8tF-iLgdJs9flN5IMWffnf3rTn0AqxPwjZEjbZpJy6dbw");
+		RefreshTokenDTO refreshTokenDTO =  new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2NGVkZWZjYy1mYmY2LTRkMDgtYTI1ZS04NDIzNTEwNzFmOTgiLCJleHAiOjE3MDEzMjM3Mzh9.9xa9bRGRWJ2sF0_m-rUvrkkPe4e16gBKED5D78WJ-VNHUAppI2QtKaQ2FpCMfxqKkeKWnjIaozqsn57MLIbuug");
 
 		String dto = mapper.writeValueAsString(refreshTokenDTO );
 
@@ -111,7 +111,7 @@ class AuthControllerTest {
 
 	@Test
 	void testTokenInvalido() throws Exception {
-		RefreshTokenDTO refreshTokenDTO = new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2NGVkZWZjYy1mYmY2LTRkMDgtYTI1ZS04NDIzNTEwNzFmOTgiLCJleHAiOjE3MDEzMjM1NDd9.XhWSuuxqrJnl6PqCDcq-RPQ-oIoHdQOV5M_GMjsxypSk7D5jLw0kT0HrWSQcRyYV2Q0pCqpyVFSWazXKsDdOOw");
+		RefreshTokenDTO refreshTokenDTO = new RefreshTokenDTO("eyJssshbGciOiJIUzUxMiJ9.eyJzdWIiOiI2NGVkZWZjYy1mYmY2LTRkMDgtYTI1ZS04NDIzNTEwNzFmOTgiLCJleHAiOjE3MDEzMjM1NDd9.XhWSuuxqrJnl6PqCDcq-RPQ-oIoHdQOV5M_GMjsxypSk7D5jLw0kT0HrWSQcRyYV2Q0pCqpyVFSWazXKsDdOOw");
 
 		String dto = mapper.writeValueAsString(refreshTokenDTO);
 
