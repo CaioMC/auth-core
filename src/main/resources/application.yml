@@ -96,4 +96,9 @@ sonar:
     ignore:
       java:
         - S2221
+  coverage:
+    conditions:
+      onProject:
+        - lessThan: 90
+
 
