@@ -91,3 +91,9 @@ springdoc:
     path: /swagger-ui.html
     title: Titan System - Auth
 
+sonar:
+  issues:
+    ignore:
+      java:
+        - S2221
+
