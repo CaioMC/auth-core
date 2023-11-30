@@ -99,7 +99,7 @@ class AuthControllerTest {
 
 	@Test
 	void testRefreshTokenSuccess() throws Exception {
-		RefreshTokenDTO refreshTokenDTO =  new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2NGVkZWZjYy1mYmY2LTRkMDgtYTI1ZS04NDIzNTEwNzFmOTgiLCJleHAiOjE3MDEzMjM3Mzh9.9xa9bRGRWJ2sF0_m-rUvrkkPe4e16gBKED5D78WJ-VNHUAppI2QtKaQ2FpCMfxqKkeKWnjIaozqsn57MLIbuug");
+		RefreshTokenDTO refreshTokenDTO =  new RefreshTokenDTO("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3NjhjY2RiNy1hNGUzLTQ4N2EtOWY3Ni1lMjE4YzFlZDhiOTEiLCJleHAiOjE3MDEzOTU0NTh9.c4J73XoFL6AMVzCDLcwJ6QQ_L710jTDJzeSXYRBs486HBPhhbuyfA0zh6EUD1yQsbwMzcV2_5ZAb4wNs969gjQ");
 
 		String dto = mapper.writeValueAsString(refreshTokenDTO );
 
