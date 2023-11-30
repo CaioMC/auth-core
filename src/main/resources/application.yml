@@ -94,11 +94,15 @@ springdoc:
 sonar:
   issues:
     ignore:
-      java:
-        - S2221
-  coverage:
-    conditions:
-      onProject:
-        - lessThan: 90
+      multicriteria:
+        e1:
+          ruleKey: "java:S2221"
+          resourceKey: "src/**/*.java"
+          scopes: "MAIN"
+          anyOfConditions: "coverage"
+          conditions: "less_than_lines_to_cover"
+          param:
+            less_than_lines_to_cover: 90
+
 
 
