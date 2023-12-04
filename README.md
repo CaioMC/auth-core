@@ -27,22 +27,6 @@ forma incialmente genérica dentro da área da saúde.
 [Diagrama de Class - Autenticação.](https://drive.google.com/file/d/1b2ZfbuJPC8Hl_Ax63KNcNOmy5iB6_-FP/view?usp=sharing)
 </br>
 [Diagrama de Class - Prontuário.](https://drive.google.com/file/d/1ya_HN1U8zHoBY0eif-SlZtzZEfR68gDM/view?usp=sharing)
-     
-# Stack e Arquitetura do Projeto
-## Backend
-  * Java 17
-  * Spring boot
-  * Flyway
-  * Maven 3.6.3
-  * Postgresql
-  * JUnit
-  * Swagger
-  * Spring Security
-  * JWT
-  * DDD
-  * 
-## Frontend
-  * Angular 13
 
 # Requisitos do Projeto
 **Requisitos Funcionais:**
