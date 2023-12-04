@@ -80,4 +80,4 @@ forma incialmente genérica dentro da área da saúde.
       
 Para mais informações das tarefas e [Board.](https://trello.com/b/A4cHrFPL/downstream-titan-system)
 ---
-A documentação completa no "Sistema Titan" esta no Notion para melhorar orientar sobre a utilização, tecnologias e arquitetura do serviço. Link do notion público: https://fog-germanium-bf4.notion.site/10383144da5f44a994f968761faf5da1?v=b4f90c419f314b63abba148b04893a4b
+A documentação completa no "Sistema Titan" esta no Notion para melhorar orientar sobre a utilização, tecnologias e arquitetura do serviço ou você também pode acessar o Wiki do proprio GitHub. Link do notion público: https://fog-germanium-bf4.notion.site/10383144da5f44a994f968761faf5da1?v=b4f90c419f314b63abba148b04893a4b
