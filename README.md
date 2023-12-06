@@ -35,7 +35,6 @@ forma incialmente genérica dentro da área da saúde.
    * **Descrição**: O sistema deve realizar a autenticação do usuário com sucesso
    * **Funcionalidades**:
      * Autenticaçã com JWT.
-     * Atribuição de funções.
      * Refresh Token
        
 **2. Cadastro de Clínicas**:
